@@ -6,6 +6,8 @@ const dbConnection = require('./config/dataBase')
 const typeRoute = require('./Routes/typeRoutes')
 const userRoute = require('./Routes/userRoute')
 const animalRoute = require('./Routes/animalRoute')
+const authRoute = require('./Routes/authRoute')
+
 
 
 
@@ -31,6 +33,8 @@ if (process.env.NODE_ENV === 'development') {
 app.use('/api/v1/types',typeRoute)
 app.use('/api/v1/users',userRoute)
 app.use('/api/v1/animals',animalRoute)
+app.use('/api/v1/auth',authRoute)
+
 
 
 const PORT = process.env.PORT || 8000;

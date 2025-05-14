@@ -29,6 +29,7 @@ const animalSchema = new mongoose.Schema({
         enum:['male','female'],
         default:'male'
     },
+    vaccin:Boolean,
     owner: {
         type: String
     }

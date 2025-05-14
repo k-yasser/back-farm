@@ -8,11 +8,13 @@ const {
 
 const router =express.Router();
 
+const AuthService= require('../services/authService.js')
+
 //router.get('/' ,getCategories )
 
 router.route('/')
     .get(getTypes)
-    .post(createType);
+    .post(AuthService.protect ,createType);
 
 router.route('/:id')
     .get(getType)  
