@@ -16,17 +16,20 @@ const {
 
 const router =express.Router();
 
+const AuthService= require('../services/authService.js')
+
+
 //router.get('/' ,getCategories )
 
 router
     .route('/')
     .get(getAnimals)
-    .post(createAnimalorValidator,createAnimal);
+    .post(AuthService.protect ,AuthService.allowedTo('user'),createAnimalorValidator,createAnimal);
 
 router
     .route('/:id')
     .get(getAnimalValidator,getAnimal)  
-    .put(updateAnimalValidator,updateAnimal)
-    .delete(deleteAnimaleValidator,deleteAnimal)
+    .put(AuthService.protect ,AuthService.allowedTo('user'),updateAnimalValidator,updateAnimal)
+    .delete(AuthService.protect ,AuthService.allowedTo('user'),deleteAnimaleValidator,deleteAnimal)
 
 module.exports = router

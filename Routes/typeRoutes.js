@@ -14,11 +14,11 @@ const AuthService= require('../services/authService.js')
 
 router.route('/')
     .get(getTypes)
-    .post(AuthService.protect ,createType);
+    .post(AuthService.protect ,AuthService.allowedTo('admin'),createType);
 
 router.route('/:id')
     .get(getType)  
-    .put(updateType)
-    .delete(deleteType)
+    .put(AuthService.protect ,AuthService.allowedTo('admin'),updateType)
+    .delete(AuthService.protect ,AuthService.allowedTo('admin'),deleteType)
 
 module.exports = router
