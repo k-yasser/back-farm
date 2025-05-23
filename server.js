@@ -7,6 +7,8 @@ const typeRoute = require('./Routes/typeRoutes')
 const userRoute = require('./Routes/userRoute')
 const animalRoute = require('./Routes/animalRoute')
 const authRoute = require('./Routes/authRoute')
+const cors = require('cors');
+
 
 
 
@@ -19,6 +21,9 @@ dbConnection();
 
 //express app
 const app=express();
+
+
+app.use(cors({ origin: "*", credentials: true }));
 
 
 //midlewear

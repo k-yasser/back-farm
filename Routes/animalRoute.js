@@ -3,7 +3,10 @@ const {
     getAnimals,
     getAnimal,
     createAnimal,
-    updateAnimal,deleteAnimal
+    updateAnimal,
+    deleteAnimal,
+    getAnimalsByOwner,
+    getAnimalByRFID 
 } = require("../services/animalService")
 
 
@@ -31,5 +34,9 @@ router
     .get(getAnimalValidator,getAnimal)  
     .put(AuthService.protect ,AuthService.allowedTo('user'),updateAnimalValidator,updateAnimal)
     .delete(AuthService.protect ,AuthService.allowedTo('user'),deleteAnimaleValidator,deleteAnimal)
+
+router.route("/owner/:id").get(getAnimalsByOwner)
+router.get('/rfid/:rfid', getAnimalByRFID);
+
 
 module.exports = router

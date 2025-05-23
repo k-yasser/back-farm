@@ -52,3 +52,26 @@ const AnimalModel =require("../model/animalModel")
 
     })
 
+    exports.getAnimalsByOwner = asyncHandler(async (req, res) => {
+    const { ownerId } = req.params;
+    const animals = await AnimalModel.find({ owner: ownerId })
+        .populate({ path: 'type', select: 'name -_id' });
+
+    res.status(200).json({
+        result: animals.length,
+        data: animals
+    });
+});
+
+
+exports.getAnimalByRFID = asyncHandler(async (req, res) => {
+    const { rfid } = req.params;
+    const animal = await AnimalModel.findOne({ rfid }).populate({ path: 'type', select: 'name -_id' });
+
+    if (!animal) {
+        return res.status(404).json({ msg: `No animal found with RFID: ${rfid}` });
+    }
+
+    res.status(200).json({ data: animal });
+});
+

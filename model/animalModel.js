@@ -2,6 +2,13 @@ const mongoose = require('mongoose');
 
 const animalSchema = new mongoose.Schema({
 
+    rfid: {
+    type: String,
+    required: true,
+    unique: true
+},
+
+
     name:{
         type:String
     },
@@ -31,7 +38,9 @@ const animalSchema = new mongoose.Schema({
     },
     vaccin:Boolean,
     owner: {
-        type: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'type', 
+        required: [true,'animal must belong to a farmer']
     }
 }, { timestamps: true });
 
