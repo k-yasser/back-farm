@@ -15,6 +15,8 @@ const {
   updateUser,
   deleteUser,
   changeUserPassword,
+  getLoggedUserData,
+
 } = require('../services/userService');
 
 const router = express.Router();
@@ -27,11 +29,14 @@ router.put('/changePassword/:id',changePasswordValidator,changeUserPassword)
 router
   .route('/')
   .get(getUsers)
-  .post(AuthService.protect ,AuthService.allowedTo('admin'),createUserValidator,createUser);
+  .post(createUserValidator,createUser);
 router
   .route('/:id')
-  .get(AuthService.protect ,AuthService.allowedTo('admin'), getUserValidator,getUser)
+  .get(AuthService.protect , getUserValidator,getUser)
   .put(AuthService.protect ,AuthService.allowedTo('admin'),updateUserValidator ,updateUser)
   .delete( AuthService.protect ,AuthService.allowedTo('admin'),deleteUserValidator,deleteUser);
+
+
+  router.get('/logging/me', AuthService.protect, getLoggedUserData);
 
 module.exports = router;

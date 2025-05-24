@@ -65,3 +65,15 @@ exports.updateUser =   asyncHandler(async (req, res, next) => {
 // @route   DELETE /api/v1/users/:id
 // @access  Private
 exports.deleteUser = factory.deleteOne(user);
+
+
+
+exports.getLoggedUserData = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.user._id);
+
+  if (!user) {
+    return next(new ApiError('User not found', 404));
+  }
+
+  res.status(200).json({ data: user });
+});
